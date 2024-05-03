@@ -11,6 +11,6 @@ router.get("/", protectRoute, getNotifications);
 router.delete("/", protectRoute, deleteNotifications);
 
 //Delete one notification
-//router.delete("/:id", protectRoute, deleteNotifications);
+//router.delete("/:id", protectRoute, deleteOneNotifications);
 
 export default router;
