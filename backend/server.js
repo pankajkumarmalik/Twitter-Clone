@@ -23,7 +23,7 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 
 //middlewears
-app.use(express.json());
+app.use(express.json({ limit: "5mb" })); //limit shouldn't be too high to prevent DOS
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
