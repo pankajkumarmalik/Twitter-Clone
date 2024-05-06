@@ -1,36 +1,51 @@
 import { Link } from "react-router-dom";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import LoadingSpinner from "../../components/common/LoadingSpinner";
 
 import { IoSettingsOutline } from "react-icons/io5";
 import { FaUser } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa6";
+import toast from "react-hot-toast";
 
 const NotificationPage = () => {
-  const isLoading = false;
-  const notifications = [
-    {
-      _id: "1",
-      from: {
-        _id: "1",
-        username: "johndoe",
-        profileImg: "/avatars/boy2.png",
-      },
-      type: "follow",
-    },
-    {
-      _id: "2",
-      from: {
-        _id: "2",
-        username: "janedoe",
-        profileImg: "/avatars/girl1.png",
-      },
-      type: "like",
-    },
-  ];
+  const queryClient = useQueryClient();
 
-  const deleteNotifications = () => {
-    alert("All notifications deleted");
-  };
+  const { data: notifications, isLoading } = useQuery({
+    queryKey: ["notifications"],
+    queryFn: async () => {
+      try {
+        const res = await fetch("/api/notifications");
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "something went wrong");
+        return data;
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+  });
+
+  const { mutate: deleteNotifications } = useMutation({
+    mutationFn: async () => {
+      try {
+        const res = await fetch("/api/notifications", {
+          method: "DELETE",
+        });
+        const data = await res.json();
+
+        if (!res.ok) throw new Error(data.error || "Something went wrong");
+        return data;
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+    onSuccess: () => {
+      toast.success("Notifications deleted successfully");
+      queryClient.invalidateQueries({ queryKey: ["notifications"] });
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
 
   return (
     <>
@@ -57,7 +72,7 @@ const NotificationPage = () => {
           </div>
         )}
         {notifications?.length === 0 && (
-          <div className="text-center p-4 font-bold">No notifications 🤔</div>
+          <div className="text-center p-4 font-bold">No notifications 😕</div>
         )}
         {notifications?.map((notification) => (
           <div className="border-b border-gray-700" key={notification._id}>
