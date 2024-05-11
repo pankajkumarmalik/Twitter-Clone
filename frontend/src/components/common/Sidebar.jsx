@@ -16,6 +16,7 @@ const Sidebar = () => {
       try {
         const res = await fetch(getApiUrl("api/auth/logout"), {
           method: "POST",
+          credentials: "include",
         });
 
         const data = await res.json();

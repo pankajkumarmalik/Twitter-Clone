@@ -32,6 +32,7 @@ const LoginPage = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ username, password }),
+          credentials: "include",
         });
 
         const data = await res.json();

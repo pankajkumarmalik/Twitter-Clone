@@ -15,7 +15,9 @@ const NotificationPage = () => {
     queryKey: ["notifications"],
     queryFn: async () => {
       try {
-        const res = await fetch(getApiUrl("api/notifications"));
+        const res = await fetch(getApiUrl("api/notifications"), {
+          credentials: "include",
+        });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || "something went wrong");
         return data;
@@ -30,6 +32,7 @@ const NotificationPage = () => {
       try {
         const res = await fetch(getApiUrl("api/notifications"), {
           method: "DELETE",
+          credentials: "include",
         });
         const data = await res.json();
 

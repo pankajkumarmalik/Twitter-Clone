@@ -29,6 +29,7 @@ const CreatePost = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ text, img }),
+          credentials: "include",
         });
         const data = await res.json();
         if (!res.ok) {
