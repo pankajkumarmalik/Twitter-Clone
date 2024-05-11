@@ -6,6 +6,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { FaUser } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa6";
 import toast from "react-hot-toast";
+import { getApiUrl } from "../../utils/api/api.js";
 
 const NotificationPage = () => {
   const queryClient = useQueryClient();
@@ -14,7 +15,7 @@ const NotificationPage = () => {
     queryKey: ["notifications"],
     queryFn: async () => {
       try {
-        const res = await fetch("/api/notifications");
+        const res = await fetch(getApiUrl("api/notifications"));
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || "something went wrong");
         return data;
@@ -27,7 +28,7 @@ const NotificationPage = () => {
   const { mutate: deleteNotifications } = useMutation({
     mutationFn: async () => {
       try {
-        const res = await fetch("/api/notifications", {
+        const res = await fetch(getApiUrl("api/notifications"), {
           method: "DELETE",
         });
         const data = await res.json();

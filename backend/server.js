@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import { v2 as cloudinary } from "cloudinary";
+import cors from "cors";
 
 import authRoutes from "./routes/auth.route.js";
 import userRoute from "./routes/user.route.js";
@@ -26,6 +27,12 @@ const app = express();
 app.use(express.json({ limit: "5mb" })); //limit shouldn't be too high to prevent DOS
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL, // Replace with frontend URL
+  })
+);
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoute);
