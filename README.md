@@ -19,12 +19,12 @@ Designed and developed a cutting-edge social media platform, inspired by the ren
 
 ## Technologies
 
-* Frontend: React, JavaScript, Tailwind CSS
+* Frontend: React, JavaScript, Tailwind CSS, daisyUI
 * Backend: Node.js, Express.js, MongoDB
 * Database: MongoDB
 * Authentication: JWT (JSON Web Tokens)
-* React Query for Data Fetching, Caching etc.
 * Image Upload: Cloudinary
+* React Query for Data Fetching, Caching etc.
 
 ## Setup and Installation
 
