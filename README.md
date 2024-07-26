@@ -1,4 +1,4 @@
-# Social Media Platform
+# Twittify
 
 Designed and developed a cutting-edge social media platform, inspired by the renowned X (formerly Twitter), delivering a seamless and intuitive user experience.
 
